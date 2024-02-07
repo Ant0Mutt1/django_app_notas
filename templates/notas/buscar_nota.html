@@ -1,0 +1,28 @@
+{% extends 'notas/index.html' %}
+{% load static %}
+{% load crispy_forms_tags %}
+
+{% block busqueda %}
+<div class="d-flex flex-wrap">
+    {% for result in results %}
+    <div>
+        <div class='border p-3 m-2 d-flex flex-column flex-grow-1 bg-danger-subtle'>
+            <button type="button" class="btn-close" aria-label="Close" data-bs-toggle="modal"
+                data-bs-target="#myModal{{ result.pk }}">
+            </button>
+            <h3>{{ result.titulo }}</h3>
+            <p>{{ result.contenido|truncatewords:50 }}</p>
+            <div>
+                {% for etiqueta in result.etiqueta.all %}
+                <span class="bg-danger-subtle btn-sm">{{etiqueta}}</span>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+    
+    {% empty %}
+            <h3 class="text-light">no hay coincidencias </h3>
+    {% endfor %}
+</div>
+{% endblock %}
+

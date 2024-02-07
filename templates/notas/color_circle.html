@@ -1,0 +1,22 @@
+<div data-toggle="buttons">
+    {% for choice in field.field.choices %}
+    <label
+       onclick="addBorder(this)" class="m-1 btn {{ choice.0 }}-subtle {% if field.value == choice.0 %} border border-dark {% endif %} shadow-sm" style="color: transparent; border: 1px solid transparent;">
+        <input type="radio" name="{{ field.html_name }}" value="{{ choice.0 }}" {% if choice.0 in field.value %} checked {% endif %} style="opacity: 0; position: absolute" hidden/>
+        {{choice.1|truncatechars:1}}
+    </label>
+    {% endfor %}
+</div>
+
+<script>
+    function addBorder(label) {
+        var labels = document.querySelectorAll('[data-toggle="buttons"] label');
+        labels.forEach(function (el) {
+            el.style.border = '1px solid transparent';
+        });
+
+        label.style.border = '1px solid black';
+    }
+</script>
+
+

@@ -1,0 +1,98 @@
+{% load static %}
+<div class="row h-100">
+    {% for nota in notas %}
+    <div class="p-3 border border-dark border-5 {{nota.color_fondo}}-subtle col-lg-4 col-md-6 col-12 align-self-stretch flex-fill contenedor"
+        onmouseover="mostrarBotones('{{ nota.pk }}')" onmouseout="ocultarBotones('{{ nota.pk }}')">
+        <h3>{{ nota.titulo }}</h3>
+        <p>{{ nota.contenido|truncatewords:35 }}</p>
+        <div>
+            {% for etiqueta in nota.etiqueta.all %}
+            <span class="{{nota.color_fondo}} btn-sm">{{etiqueta}}</span>
+            {% endfor %}
+            <div class="botones" id="misBotones{{ nota.pk }}">
+                <button type="button" class="btn btn-success btn-sm boton rounded-circle m-1" data-bs-toggle="modal"
+                    data-bs-target="#myModal2{{ nota.pk }}">
+                    <i class="bi bi-arrow-up-left-square-fill"></i>
+                </button>
+                <button onclick="abrir_modal_edicion('{{ nota.get_update_url }}')"
+                    class="card-link btn btn-success btn-sm boton rounded-circle m-1">
+                    <i class="bi bi-pencil-square"></i>
+                </button>
+                <button type="button" class="btn btn-success btn-sm boton rounded-circle m-1" data-bs-toggle="modal"
+                    data-bs-target="#myModal{{ nota.pk }}">
+                    <i class="bi bi-file-earmark-x"></i>
+                </button>
+                <button type="button" class="btn btn-success btn-sm boton rounded-circle m-1">
+                    <i class="bi bi-palette"></i>
+                </button>
+            </div>
+        </div>
+
+        <div>
+            <!-- The Modal -->
+            <div class="modal fade" id="myModal{{ nota.pk }}">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <!-- Modal Header -->
+                        <div class="modal-header">
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <!-- Modal body -->
+                        <div class="modal-body">
+                            {% include 'notas/borrar_nota.html' with pk=nota.pk %}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- DETALLE MODAL -->
+        <div class="modal fade" id="myModal2{{ nota.pk }}" tabindex="-1" role="dialog" aria-labelledby="myModalLabel2">
+            <div class="modal-dialog bg-dark" role="document">
+                <div class="modal-content bg-dark">
+                    <div class="modal-body">
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        {% include 'notas/detalle_nota.html' with pk=nota.pk %}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    {% endfor %}
+
+    <div class="modal fade" id="myModal3{{ nota.pk }}" tabindex="-1" aria-labelledby="exampleModalLabel"
+        aria-hidden="true">
+        {% include 'notas/modificar_nota.html' with form=form_nota %}
+    </div>
+</div>
+<!-- Agregar la paginación -->
+<div class="pagination mx-auto p-2" style="width: 50%">
+    <span class="step-links">
+        {% if notas.has_previous %}
+        <a href="?page=1" class="link-info">&laquo; primera</a>
+        <a href="?page={{ notas.previous_page_number }}" class="link-info">anterior</a>
+        {% endif %}
+
+        <span class="current text-light">
+            Página {{ notas.number }} de {{ notas.paginator.num_pages }}.
+        </span>
+
+        {% if notas.has_next %}
+        <a href="?page={{ notas.next_page_number }}" class="link-info">siguiente</a>
+        <a href="?page={{ notas.paginator.num_pages }}" class="link-info">última &raquo;</a>
+        {% endif %}
+    </span>
+</div>
+
+<script>
+    function mostrarBotones(pk) {
+    document.getElementById('misBotones' + pk).style.display = 'block';
+  }
+  
+  function ocultarBotones(pk) {
+    document.getElementById('misBotones' + pk).style.display = 'none';
+  }
+
+
+</script>
+

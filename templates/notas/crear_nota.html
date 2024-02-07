@@ -1,0 +1,6 @@
+{% load static %}
+{% load crispy_forms_tags %}
+<form method='post' action="{% url 'notas:crear_nota' %}">{% csrf_token %}
+  {% crispy form_nota %}
+</form>
+

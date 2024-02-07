@@ -1,0 +1,9 @@
+{% extends "layout.html" %}
+
+{% block contenedor %}
+
+<div class="alert alert-info m-5">
+    <p>¡Sesión finalizada!</p>
+    <a href="{% url 'usuarios:login'%}">Haga clic aquí para iniciar sesión nuevamente.</a>
+</div>
+{% endblock %}

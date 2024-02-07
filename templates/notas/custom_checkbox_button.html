@@ -1,0 +1,15 @@
+<div>
+  <button class="btn btn-outline-info" type="button" data-bs-toggle="collapse" data-bs-target="#collapseExample"
+    aria-expanded="false" aria-controls="collapseExample">
+    Ver Etiquetas
+  </button>
+  
+  <div class="collapse" id="collapseExample" data-toggle="buttons">
+    {% for choice in field.field.choices %}
+    <label class="m-1 btn btn-outline-info{% if choice.0 in field.value %} active{% endif %}">
+      <input type="checkbox" name="{{ field.html_name }}" value="{{ choice.0 }}" autocomplete="off" {% if choice.0 in field.value %} checked {% endif %} style="opacity: 0; position: absolute;">
+      {{ choice.1 }}
+    </label>
+    {% endfor %}
+  </div>
+</div>

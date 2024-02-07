@@ -1,0 +1,17 @@
+{% load static %}
+<!-- The Modal -->
+<div class="modal" id="myModal{{ nota.pk }}">
+    <div class="modal-dialog">
+        <div class="modal-content">
+        <!-- Modal Header -->
+        <div class="modal-header">
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"> </button>
+        </div>
+        <!-- Modal body -->
+        <div class="modal-body">
+            {% include 'notas/borrar_nota.html' with pk=nota.pk %}
+        </div>
+        </div>
+    </div>
+    </div>
+</div> 

@@ -1,0 +1,6 @@
+<form method="post" action="{% url 'notas:borrar_etiqueta' pk %}">{% csrf_token %}
+    <p>¿Quieres eliminar la etiqueta?</p>
+    {{ form }}
+    <input class="btn btn-danger" type="submit" value="Eliminar">
+</form>
+

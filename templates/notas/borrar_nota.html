@@ -1,0 +1,7 @@
+
+<form method="post" action="{{nota.get_detele_url}}">{% csrf_token %}
+    <p>¿Quieres elimiar una nota?</p>
+    {{ form }}
+    <input class="btn btn-danger" type="submit" value="Eliminar">
+</form>
+

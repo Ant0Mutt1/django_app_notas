@@ -1,0 +1,104 @@
+{% extends 'layout.html' %}
+{% load static %}
+{% load crispy_forms_tags %}
+{% block contenedor %}
+{% if user.is_authenticated %}
+<section class="row altura">
+
+    <nav class="navbar navbar-expand-lg bg-body-tertiary d-lg-none" >
+        <img src="{% static 'imagenes/logo-sin-nombre-removebg-preview.png' %}" alt="" width="50px">
+        <form class="d-flex" method="post" action="{% url 'notas:buscar' %}">
+            {% csrf_token %}
+            <input class="form-control me-2" type="search" placeholder="Buscar Nota" aria-label="Search"
+                name="query">
+            <button class="btn btn-outline-success" type="submit">Buscar</button>
+        </form>
+        <div data-bs-toggle="offcanvas"
+        data-bs-target="#offcanvasResponsive" aria-controls="offcanvasResponsive">
+            <i class="bi bi-three-dots-vertical"></i>
+        </div>
+    </nav>
+    <div class="col-lg-3 ">
+        <div class="offcanvas-lg offcanvas-start h-100 d-flex flex-column justify-content-around color-menu-desplegable" id="offcanvasResponsive"
+            aria-labelledby="offcanvasResponsiveLabel">
+            <!-- encabezado header -->
+            <button type="button" class="btn btn-success btn-lg bg-gradient rounded-pill mb-5" data-bs-toggle="modal"
+                data-bs-target="#myModal">
+                <i class="bi bi-plus-lg"></i> Nueva Nota
+            </button>
+            <form class="d-flex" method="post" action="{% url 'notas:buscar' %}">
+                {% csrf_token %}
+                <input class="form-control me-2" type="search" placeholder="Buscar Nota" aria-label="Search"
+                    name="query">
+                <button class="btn btn-outline-success" type="submit">Buscar</button>
+            </form>
+
+            {% include 'notas/lista_etiqueta.html' %}
+
+            <!-- encabezado footer -->
+            <div class="btn-group d-flex justify-content-between align-items-center p-3">
+                <div class="d-flex align-items-center">
+                    <span class="text-light">{{user.username}}</span>
+                </div>
+                <button class=" btn dropdown-toggle dropdown-toggle-split" data-bs-toggle="dropdown"
+                    aria-expanded="false">
+                    <i class="bi bi-three-dots text-light"></i>
+                </button>
+                <ul class="dropdown-menu">
+                    <li class="dropdown-item"><a href="{% url 'password_change' %}">Cambiar contraseña</a></li>
+                    <hr class="dropdown-divider">
+                    <li class="text-center">
+                        <form method="post" action="{% url 'logout' %}">
+                            {% csrf_token %}
+                            <input type="submit" class="bg-transparent border border-0"
+                                value="Cerrar sesión" />
+                        </form>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <div class="bg-dark col-lg-9 col-12 p-lg-4">
+        {% block busqueda %}
+        {% include 'notas/lista_nota.html' %}
+        {% endblock %}
+    </div>
+</section>
+<div>
+    <!-- The Modal -->
+    <div class="modal" id="myModal">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <!-- Modal Header -->
+                <div class="modal-header">
+                    <h4 class="modal-title">Agregar nueva nota.</h4>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <!-- Modal body -->
+                <div class="modal-body">{% include 'notas/crear_nota.html' %}</div>
+            </div>
+        </div>
+    </div>
+</div>
+{% else %}
+
+<div>
+    <h1>aplicacion de notas</h1>
+</div>
+{% endif %}
+
+
+{% endblock %}
+
+{% block script %}
+
+<script>
+    var $ = jQuery.noConflict();
+    function abrir_modal_edicion(url) {
+        $("#myModal3{{ nota.pk }}").load(url, function () {
+            $(this).modal("show");
+        });
+    }
+</script>
+
+{% endblock %}
