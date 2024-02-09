@@ -147,11 +147,4 @@ CRISPY_TEMPLATE_PACK = 'bootstrap4'
 
 
 
-AUTH_USER_MODEL = 'usuarios.CustomUser'
-AUTHENTICATION_BACKENDS = [
-                            'usuarios.backends.EmailBackend',
-                            'usuarios.backends.CustomUserModelBackend',
-                            'django.contrib.auth.backends.ModelBackend',
-                            ]
-
 

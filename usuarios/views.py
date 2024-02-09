@@ -4,11 +4,11 @@ from django.views.generic import CreateView
 from .forms import UserCreationFormWithEmail
 from django.contrib.auth import views as auth_views
 from .forms import LoginForm
-from .models import CustomUser
+from django.contrib.auth import get_user_model
 
 
 class SingUpView(CreateView):
-    model = CustomUser
+    model = get_user_model()
     form_class = UserCreationFormWithEmail
     template_name = 'usuarios/registro.html'
     success_url =  reverse_lazy('usuarios:login')

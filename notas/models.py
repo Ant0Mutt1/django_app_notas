@@ -1,11 +1,10 @@
-from django.contrib.auth.models import User
-from usuarios.models import CustomUser
+from django.conf import settings
 from django.db import models
 from django.urls import reverse
 from django.utils.text import slugify
 
 class Etiqueta(models.Model):
-    usuario = models.ForeignKey(CustomUser, on_delete=models.CASCADE)
+    usuario = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
     nombre = models.CharField(max_length=100)
     slug = models.SlugField(blank=True, default='')
 
@@ -25,7 +24,7 @@ class Etiqueta(models.Model):
 
 
 class Nota(models.Model):
-    usuario = models.ForeignKey(CustomUser, on_delete=models.CASCADE)
+    usuario = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
     titulo = models.CharField(max_length=100, blank= True, null=True)
     contenido = models.TextField(max_length=1000)
     etiqueta = models.ManyToManyField(Etiqueta, blank=True, default='')

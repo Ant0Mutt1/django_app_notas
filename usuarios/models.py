@@ -1,7 +1,5 @@
+from django.contrib.auth.models import User
 from django.db import models
-from django.contrib.auth.models import AbstractUser
-from django.utils.translation import gettext_lazy as _
 
-
-class CustomUser(AbstractUser):
-    email = models.EmailField(_('email address'), unique=True)
+# Modificamos el campo email después de que se ha definido el modelo User
+User._meta.get_field('email')._unique = True
