@@ -7,15 +7,10 @@
 
     <nav class="navbar navbar-expand-lg bg-body-tertiary d-lg-none" >
         <img src="{% static 'imagenes/logo-sin-nombre-removebg-preview.png' %}" alt="" width="50px">
-        <form class="d-flex" method="post" action="{% url 'notas:buscar' %}">
-            {% csrf_token %}
-            <input class="form-control me-2" type="search" placeholder="Buscar Nota" aria-label="Search"
-                name="query">
-            <button class="btn btn-outline-success" type="submit">Buscar</button>
-        </form>
+
         <div data-bs-toggle="offcanvas"
         data-bs-target="#offcanvasResponsive" aria-controls="offcanvasResponsive">
-            <i class="bi bi-three-dots-vertical"></i>
+            <i class="bi bi-list"></i>
         </div>
     </nav>
     <div class="col-lg-3 ">
