@@ -1,7 +1,8 @@
 {% load static %}
-<div class="row h-100">
+<div class="row {%if notas %}h-100{% endif %}">
+    {% if notas%}
     {% for nota in notas %}
-    <div class="p-3 border border-dark border-5 {{nota.color_fondo}}-subtle col-lg-4 col-md-6 col-12 align-self-stretch flex-fill contenedor"
+    <div class="p-3 border border-dark border-5 {{nota.color_fondo}}-subtle col-lg-4 col-md-6 col-12 align-self-stretch flex-fill position-relative contenedor"
         onmouseover="mostrarBotones('{{ nota.pk }}')" onmouseout="ocultarBotones('{{ nota.pk }}')">
         <h3>{{ nota.titulo }}</h3>
         <p>{{ nota.contenido|truncatewords:35 }}</p>
@@ -27,7 +28,6 @@
                 </button>
             </div>
         </div>
-
         <div>
             <!-- The Modal -->
             <div class="modal fade" id="myModal{{ nota.pk }}">
@@ -45,7 +45,7 @@
                 </div>
             </div>
         </div>
-
+        
         <!-- DETALLE MODAL -->
         <div class="modal fade" id="myModal2{{ nota.pk }}" tabindex="-1" role="dialog" aria-labelledby="myModalLabel2">
             <div class="modal-dialog bg-dark" role="document">
@@ -59,29 +59,35 @@
         </div>
     </div>
     {% endfor %}
-
+    <!-- Agregar la paginación -->
+    <div class="pagination mx-auto p-2 position-absolute bottom-0 end-0">
+        <span class="step-links">
+            {% if notas.has_previous %}
+            <a href="?page=1" class="link-info">&laquo; primera</a>
+            <a href="?page={{ notas.previous_page_number }}" class="link-info">anterior</a>
+            {% endif %}
+    
+            <span class="current text-light">
+                Página {{ notas.number }} de {{ notas.paginator.num_pages }}.
+            </span>
+    
+            {% if notas.has_next %}
+            <a href="?page={{ notas.next_page_number }}" class="link-info">siguiente</a>
+            <a href="?page={{ notas.paginator.num_pages }}" class="link-info">última &raquo;</a>
+            {% endif %}
+        </span>
+    </div>
+    {% else %}
+    <div class="alert alert-info p-5 m-5 flex-fill " role="alert">
+        <h5 class="text-center">No hay notas guardadas</h5>
+    </div>
+      
+    {% endif %}    
+    
     <div class="modal fade" id="myModal3{{ nota.pk }}" tabindex="-1" aria-labelledby="exampleModalLabel"
-        aria-hidden="true">
+    aria-hidden="true">
         {% include 'notas/modificar_nota.html' with form=form_nota %}
     </div>
-</div>
-<!-- Agregar la paginación -->
-<div class="pagination mx-auto p-2" style="width: 50%">
-    <span class="step-links">
-        {% if notas.has_previous %}
-        <a href="?page=1" class="link-info">&laquo; primera</a>
-        <a href="?page={{ notas.previous_page_number }}" class="link-info">anterior</a>
-        {% endif %}
-
-        <span class="current text-light">
-            Página {{ notas.number }} de {{ notas.paginator.num_pages }}.
-        </span>
-
-        {% if notas.has_next %}
-        <a href="?page={{ notas.next_page_number }}" class="link-info">siguiente</a>
-        <a href="?page={{ notas.paginator.num_pages }}" class="link-info">última &raquo;</a>
-        {% endif %}
-    </span>
 </div>
 
 <script>
