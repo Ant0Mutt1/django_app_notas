@@ -36,10 +36,7 @@
                 <div class="d-flex align-items-center">
                     <span class="text-light">{{user.username}}</span>
                 </div>
-                <button class=" btn dropdown-toggle dropdown-toggle-split" data-bs-toggle="dropdown"
-                    aria-expanded="false">
-                    <i class="bi bi-three-dots text-light"></i>
-                </button>
+                <i class="bi bi-three-dots text-light" data-bs-toggle="dropdown"></i>
                 <ul class="dropdown-menu">
                     <li class="dropdown-item"><a href="{% url 'password_change' %}">Cambiar contraseña</a></li>
                     <hr class="dropdown-divider">

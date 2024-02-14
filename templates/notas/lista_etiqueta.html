@@ -3,38 +3,36 @@
   <h3 class="text-light">Ver por Etiqueta</h3>
   <ul id="miLista" class="scroll-menu">
     <li class="mt-3 list-unstyled">
-      <a
-        href="{% url 'notas:index' %}"
-        class="p-2 rounded-pill me-auto text-light"
-        >Todas</a
-      >
+        <a href="{% url 'notas:index' %}"
+            class="p-2 rounded-pill me-auto text-light">
+            Todas
+        </a>
     </li>
     {% for etiqueta in etiquetas %}
 
-    <li class="etiqueta-li mt-3 list-unstyled">
-      <a
-        href="#"
-        hidden
-        class="miEnlace"
-        onclick="abrir_modal_edicion('{{ etiqueta.get_update_url }}')"
-        ><i class="bi bi-pencil text-light"></i
-      ></a>
-      <a
-        href="#"
-        hidden
-        class="miEnlace"
-        data-bs-toggle="modal"
-        data-bs-target="#myModalBorrarEtiqueta{{ etiqueta.pk }}"
-        ><i class="bi bi-trash text-light"></i>
-      </a>
-      <a
-        href="{% url 'notas:index_con_slug' etiqueta.slug %}"
-        class="p-2 rounded-pill me-auto text-light"
-        >{{etiqueta.nombre}}</a
-      >
-      <span class="badge bg-dark bg-gradient text-light"
-        >{{etiqueta.nota_set.count}}</span
-      >
+    <li class="etiqueta-li mt-3 list-unstyled">     
+        <a href="{% url 'notas:index_con_slug' etiqueta.slug %}"
+            class="p-2 rounded-pill me-auto text-light">
+            {{etiqueta.nombre}}
+        </a>
+        <span class="badge bg-dark bg-gradient text-light">
+        {{etiqueta.nota_set.count}}
+        </span>
+        <div class="dropup-center dropup d-inline">
+            <i class="bi bi-three-dots-vertical text-light " data-bs-toggle="dropdown"></i>
+            <ul class="dropdown-menu overflow-visible">
+                <li class="dropdown-item">
+                    <a href="#" class="text-dark" onclick="abrir_modal_edicion('{{ etiqueta.get_update_url }}')">
+                        <i class="bi bi-pencil"></i> Editar
+                    </a>
+                </li>
+                <li class="dropdown-item">
+                    <a href="#" class="text-dark" data-bs-toggle="modal" data-bs-target="#myModalBorrarEtiqueta{{ etiqueta.pk }}">
+                        <i class="bi bi-trash "></i> Eliminar
+                    </a>
+                </li>
+            </ul>
+        </div>
     </li>
 
     <!-- modal borra etiqueta -->
