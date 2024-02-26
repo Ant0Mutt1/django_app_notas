@@ -39,6 +39,7 @@
                 <i class="bi bi-three-dots text-light" data-bs-toggle="dropdown"></i>
                 <ul class="dropdown-menu">
                     <li class="dropdown-item"><a href="{% url 'password_change' %}">Cambiar contraseña</a></li>
+                    <li class="dropdown-item"> <a href="{% url 'usuarios:delete' user.pk %}">Eliminar Cuenta</a></li>
                     <hr class="dropdown-divider">
                     <li class="text-center">
                         <form method="post" action="{% url 'logout' %}">

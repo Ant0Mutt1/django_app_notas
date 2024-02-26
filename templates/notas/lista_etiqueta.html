@@ -10,17 +10,20 @@
     </li>
     {% for etiqueta in etiquetas %}
 
-    <li class="etiqueta-li mt-3 list-unstyled">     
-        <a href="{% url 'notas:index_con_slug' etiqueta.slug %}"
-            class="p-2 rounded-pill me-auto text-light">
-            {{etiqueta.nombre}}
-        </a>
-        <span class="badge bg-dark bg-gradient text-light">
-        {{etiqueta.nota_set.count}}
-        </span>
-        <div class="dropup-center dropup d-inline">
+    <li class="etiqueta-li mt-3 list-unstyled row position-relative"> 
+        <div class="col-8">
+            <a href="{% url 'notas:index_con_slug' etiqueta.slug %}"
+                class="p-2 rounded-pill me-auto text-light">
+                {{etiqueta.nombre|truncatechars_html:7}}
+            </a>
+            <span class="badge bg-dark bg-gradient text-light">
+            {{etiqueta.nota_set.count}}
+            </span>
+        </div>    
+ 
+        <div class="dropdown-center col-3 position-absolute bottom-0 end-0">
             <i class="bi bi-three-dots-vertical text-light " data-bs-toggle="dropdown"></i>
-            <ul class="dropdown-menu overflow-visible">
+            <ul class="dropdown-menu ">
                 <li class="dropdown-item">
                     <a href="#" class="text-dark" onclick="abrir_modal_edicion('{{ etiqueta.get_update_url }}')">
                         <i class="bi bi-pencil"></i> Editar
@@ -33,6 +36,7 @@
                 </li>
             </ul>
         </div>
+
     </li>
 
     <!-- modal borra etiqueta -->
